@@ -27,7 +27,7 @@
 
 Создадим скрипт и подключим его к энергетическому щиту. С помощью данного кода игрок сможет управлять щитом с помощью мыши.
 
-'''
+```
 void Update()
     {
         Vector3 mousePos2D = Input.mousePosition;
@@ -37,18 +37,18 @@ void Update()
         pos.x = mousePos3D.x;
         this.transform.position = pos;
     }
-'''
+```
 
 Затем реализуем ловлю яиц энергетическим щитом.
 
-'''
+```
 private void OnCollisionEnter(Collision coll) {
         GameObject Collided = coll.gameObject;
         if (Collided.tag == "Dragon Egg"){
             Destroy(Collided);
         }
     }
-'''
+```
 
 
 
