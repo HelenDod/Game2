@@ -118,7 +118,46 @@ public void DragonEggDestroyed(){
 Таким образом, при промахе игрока происходит сброс сцены, где последующее выпадающее яйцо пропадает.
 ![Сброс сцены (1)](https://user-images.githubusercontent.com/90499063/197333475-480f1728-e38f-4ef9-9e51-70759d4aa0bf.gif)
 
+Напишем код уменьшения жизней энергетического щита.
+```
+public List<GameObject> shieldList;
 
+void Start()
+{
+    shieldList = new List<GameObject>();
+    for (int i = 1; i <= numEnergyShield; i++){
+        GameObject tShiedGo = Instantiate<GameObject>(energyShieldPrefab);
+        tShiedGo.transform.position = new Vector3(0, energyShieldBottomY, 0);
+        tShiedGo.transform.localScale = new Vector3(1*i, 1*i, 1*i);
+        shieldList.Add(tShiedGo);
+    }
+        
+}
+
+public void DragonEggDestroyed(){
+        GameObject[] tDragonEggArray = GameObject.FindGameObjectsWithTag("Dragon Egg");
+        foreach (var tGO in tDragonEggArray)
+        {
+            Destroy(tGO);
+        }
+        int shieldIndex = shieldList.Count - 1;
+        GameObject tShieldGo = shieldList[shieldIndex];
+        shieldList.RemoveAt(shieldIndex);
+        Destroy(tShieldGo);
+        if (shieldList.Count == 0){
+            SceneManager.LoadScene("_0Scene");
+        }
+    }
+```
+У нас происходит уменьшение количества жизней при промахах игрока. После 3-х промахов игра перезапускается и счетчик обновляется.
+
+
+Добавим текстуры на дальний план. 
+Настроим расположение префаба горы.
+
+Настроим текстуру неба.
+
+Игра приобрела такой вид:
 
 ### – 4 Практическая работа «Структурирование исходных файлов в папке».
 
